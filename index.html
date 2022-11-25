@@ -5,13 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<style type="text/css">
+		P{
+			font-size: 25px;
+		}
 		body{
 			background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/1400/a4b33886128681.5d909dad47ded.jpg);
 			bakground-size:cover;
 			background-repeat: no-repeat;
 			background-size: 100%;
 			text-align: center;
-			font-size: 20px;
+			/*font-size: 20px;*/
 		}
 		#name{
 			font-size: 25px;
@@ -22,25 +25,52 @@
 		}
 		button{
 			font-size: 25Px;
-			background-color: blueviolet;
+			background-color: ghostwhite;
+			border-radius: 25px;
+		}
+		#cars{
+			font-size: 25px;
+			margin-bottom: 2%;
 		}
 	</style>
 </head>
 <body>
+	<p><h1>Registration Page<h1></p>
 	<p><input placeholder="Enter your name" id="name"/></p>
 	<p><input id="password"/></p>
+	<!-- <label>choose a car : </label> -->
+	<select name="cars" id="cars">
+		<option value="select option">Select options</option>
+		<option value="Audi">Audi</option>
+		<option value="Volvo">Volvo</option>
+		<option value="BMW">BMW</option>
+		<option value="kia">Kia</option>
+		<option value="Hyundai ">Hyundai </option>
+		<option value="RangeRover">RangeRover</option>
+	</select><br>
+	<p id="gender">
+		<input type="radio" name="gender" value="female" id="female" />
+		<label for="female">Female</label>
+		<input type="radio" id="male" name="gender" value="male">
+		<label for="male">Male</label><br>
+	</p>
 	<p><button onclick="show()">Submit</button></p>
 	<script type="text/javascript">
 	function show(){
 		var data=document.getElementById("name").value
-		var password=document.getElementById("password").value  
-		console.log(data,password)
+		var password=document.getElementById("password").value
+		var cars=document.getElementById("cars").value
+		var gfemale=document.getElementById("female").checked
+		var gmale=document.getElementById("male").checked
+		if(gfemale==true) var gender="female"
+			else var gender="male"
+		console.log(data,password,cars,gender)
 		fetch("http://localhost:2500/newData",{
 			method:"POST",
 			headers:{
 				"Content-Type":"application/json"
 			},
-			body:JSON.stringify({name:data,password:password})
+			body:JSON.stringify({name:data,password:password,select:cars,radio:gender})
 		})
 		.then((res)=>{
 			console.log(res)
